@@ -1,0 +1,44 @@
+﻿@page "/"
+@using HoutKunst.Web.Shared
+
+@inject IUserService userService
+
+
+<h1>Welcome to The gallery</h1>
+<div>
+    <input type="search" placeholder="search" value="search"  @onchange="loadList"/>
+</div>
+
+<div class=" columns">
+    @foreach (var user in users) {
+        <div class=" flex-row">
+            <div class="column">
+                <HoutKunst.Web.Client.Components.User user="user"></HoutKunst.Web.Client.Components.User>
+            </div>
+        </div>
+    
+    }
+    
+</div>
+
+@code{
+    private IEnumerable<UserDto> users;
+    private string search = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        users = await userService.GetIndexAsync();
+
+        //users = await client.GetFromJsonAsync<List<UserDto>>("user");
+        Console.WriteLine("done");
+    }
+
+    public async void loadList(ChangeEventArgs e ) {
+
+        users = await userService.GetIndexAsync(e.Value.ToString());
+    
+    }
+}
+
+
+

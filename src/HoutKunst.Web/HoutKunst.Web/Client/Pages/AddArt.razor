@@ -1,0 +1,16 @@
+﻿@page "/addArt"
+
+<h3>AddArt</h3>
+<form action="post" @onsubmit="Submit">
+    <input id="name" type="text" />
+
+    <button type="submit"> Submit</button>
+</form>
+@code {
+
+    private void Submit() {
+        Console.WriteLine("submitted");
+
+    }
+
+}

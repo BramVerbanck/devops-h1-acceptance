@@ -1,0 +1,13 @@
+﻿div {
+    padding:1rem;
+}
+.isTextPrimary{
+    color:#203647;
+}
+.isTextDark{
+    color:#12232e;
+}
+.card {
+    border-color: #203647;
+    border-radius: 1rem;
+}

@@ -1,0 +1,34 @@
+﻿@using Domain
+@using System.Linq
+
+<a href="art/@art.Id">
+    <div class="card">
+        <div class="rows">
+
+            <h3 class="row card-header isTextPrimary">@art.info.</h3>
+
+            <div class="row card-image">
+                <img src="@art.Image" alt="@art.Image" />
+            </div>
+            
+
+            <div class="card-content isTextDark">
+
+                <p class="row"> maker : @art.Maker</p>
+                <p class=" row">prijst : @art.Vraagprijs Euro</p>
+                <p class="row">@art.ArtType</p>
+                <p class="row">
+                    @if (art.IsOutdoors)
+                    {
+                        <i class="fas fa-cloud-sun"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-home"></i>
+                    }
+                </p>
+            </div>
+
+        </div>
+    </div>
+</a>

@@ -1,0 +1,43 @@
+﻿@page "/art/{id:int}"
+@using HoutKunst.Web.Shared.Services
+@using HoutKunst.Web.Shared
+@inject IArtWorkService artService
+@inject NavigationManager NavigationManager
+@attribute [Authorize]
+
+
+@if (art == null)
+{
+
+    <p><em>Loading ..</em></p>
+}
+else
+{
+    <h3>@art.Maker</h3>
+    <div class="columns">
+        <img class="column" src="@art.Image" />
+        <p class=" column"> @art.MaakJaar</p>
+        <AuthorizeView Roles="Administrator">
+            <button class="btn btn-danger" @onclick="DeleteAsync">delete</button>
+        </AuthorizeView>
+    </div>
+}
+
+
+@code {
+
+    [Parameter] public int id { get; set; }
+
+
+    private ArtWorkDto art;
+
+    protected override async Task OnInitializedAsync()
+    {
+        art = await artService.GetDetailAsync(id);
+    }
+
+    private async Task DeleteAsync() {
+        await artService.DeleteAsync(id);
+        NavigationManager.NavigateTo("art");
+    }
+}

@@ -1,0 +1,34 @@
+﻿@page "/art"
+@using HoutKunst.Web.Shared.Services
+@using HoutKunst.Web.Shared
+@inject IArtWorkService  artworkservice
+<style>
+    body{
+        background-color: #eefbfb;
+    }
+    /*This block is needed because the ArtPage.razor.css doesn't get accepted*/
+</style>
+
+<h3>ArtPage</h3>    
+
+    <div class="columns is-multiline">
+    @foreach (var art in artWorks)
+    {
+        <div class="column is-one-quarter">
+           <HoutKunst.Web.Client.Components.ArtworkComponent art="art"></HoutKunst.Web.Client.Components.ArtworkComponent>
+        </div>
+    }
+    </div>
+
+
+
+@code {
+
+    private IEnumerable<ArtWorkDto> artWorks;
+
+    protected override async Task OnInitializedAsync()
+    {
+        artWorks = await artworkservice.GetIndexAsync();
+    }
+
+}
