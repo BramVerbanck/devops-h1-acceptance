@@ -479,3 +479,15 @@ docker-compose.yml
 test-app.ps1
 setup-test-env.ps1
 >>>>>>> Stashed changes
+
+# Test environment resource files
+Dockerfile
+docker-compose.yml
+test-app.ps1
+setup-test-env.ps1
+
+# Test environment resource files
+Dockerfile
+docker-compose.yml
+test-app.ps1
+setup-test-env.ps1
