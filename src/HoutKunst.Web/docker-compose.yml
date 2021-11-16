@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: hout
+      POSTGRES_PASSWORD: kunst
+      POSTGRES_DB: houtkunst
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+  web-server:
+    image: houtkunst.azurecr.io/houtkunstwebserver
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=443
+    ports:
+      - "80:80"
+      - "443:443"
+      
+    volumes:
+      - mydata:/test
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https/
+
+volumes:
+  db-data:
+  driver: azure_file
+    driver_opts:
+      share_name: sharestorage
+      storage_account_name: storagehoutkunst
+  mydata:
+    driver: azure_file
+    driver_opts:
+      share_name: sharestorage
+      storage_account_name: storagehoutkunst
